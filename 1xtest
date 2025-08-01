@@ -60,18 +60,12 @@ Hats = {
 }
 local Reanimate = loadstring(game:HttpGet("https://raw.githubusercontent.com/KadeTheExploiter/Krypton/main/Module.luau"))()
 Character = Reanimate:GetCharacter()
-
-    -- Gán animation mặc định
-    local function CreateAnimation(name, id)
-        if not Character:FindFirstChildOfClass("Humanoid") then return end
-        local anim = Instance.new("Animation")
-        anim.Name = name
-        anim.AnimationId = "rbxassetid://" .. id
-        Character:FindFirstChildOfClass("Humanoid"):AddAnimation(anim)
-    end
-
-    CreateAnimation("Idle", 136078657506707)
-    CreateAnimation("Walk", 130213485744288)
-    CreateAnimation("Jump", 84397577392351)
-    CreateAnimation("Fall", 90270295182351)
+local function CreateAnimation(Name, ID)
+    local New = game:GetObjects("rbxassetid://"..ID)[1]
+    New.Parent = Anims
+    New.Name = Name
 end
+CreateAnimation("Idle", 136078657506707)
+CreateAnimation("Walk", 130213485744288)
+CreateAnimation("Jump", 84397577392351)
+CreateAnimation("Fall", 90270295182351)
