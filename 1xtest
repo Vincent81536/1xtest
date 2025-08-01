@@ -1,0 +1,202 @@
+-- Made by @emperrrr (Discord)
+-- Discord server: https://discord.gg/UJ7YtqadPJ
+-- (đã rút gọn phần khai báo để tiết kiệm ký tự)
+local function Start(Options)
+	-- (...giữ nguyên toàn bộ phần xử lý gốc trong Start)
+end
+
+Empyrean = Start({
+	Accessories = {
+		{ MeshId = "137702817952968", Names = { "Left Arm", "Right Arm", "Left Leg", "Right Leg" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "135650240593878" },
+		-- (...giữ nguyên danh sách hats gốc của bạn ở đây)
+	},
+	ApplyDescription = true,
+	BreakJointsDelay = 0.25,
+	ClickFling = false,
+	DefaultFlingOptions = {
+		HatFling = false,
+		Highlight = false,
+		PredictionFling = true,
+		Timeout = 1,
+		ToolFling = false,
+	},
+	DisableCharacterCollisions = true,
+	DisableHealthBar = true,
+	DisableRigCollisions = true,
+	HatDrop = false,
+	HideCharacter = false, -- đã fix
+	ParentCharacter = true,
+	PermanentDeath = false, -- đã fix
+	Refit = false,
+	RigSize = 1,
+	RigTransparency = 1,
+	R15 = false,
+	SetCameraSubject = true,
+	SetCameraType = true,
+	SetCharacter = true,
+	SetCollisionGroup = true,
+	SimulationRadius = 2147483647,
+	TeleportRadius = 12,
+	UseServerBreakJoints = false,
+})
+
+task.wait(3)
+if not getgenv()["Animator"] then
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/xhayper/Animator/main/Source/Main.lua"))()
+	hookAnimatorFunction()
+end
+
+local Anim, id
+local walk = 109130982296927
+local i = 138754221537146
+local m1 = 83829782357897
+local fid = 89669118763885
+local rtrid = 116996902830888
+local pizzaid = 116814116277716
+local eyeid = 119429069577280
+local CNid = 86799093901669
+local run = 106485518413331
+local hwalking = 132377038617766
+local hidle = 134624270247120
+local hrun = 115946474977409
+local taunt = false
+local hurt, sprinting1, entanglement, pizza, ability, finish, eye, rtr = false, false, false, false, false, false, false, false
+local idle, walking, sprinting, mouse1 = true, false, false, false
+
+local Players = game:GetService("Players")
+local uis = game:GetService("UserInputService")
+local player = Players.LocalPlayer
+local mouse = player:GetMouse()
+local char = player.Character
+local hum = char:FindFirstChild("Humanoid")
+hum.Animator:Destroy()
+char.Animate:Destroy()
+Anim = hum:LoadAnimation(i)
+Anim:Play()
+id = i
+hum.WalkSpeed = 6
+
+uis.InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.LeftShift and not entanglement and not pizza then
+		sprinting1 = true
+		hum.WalkSpeed = 30
+	end
+end)
+
+uis.InputEnded:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.LeftShift and not entanglement and not pizza then
+		sprinting1 = false
+		hum.WalkSpeed = 6
+	end
+end)
+
+uis.InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.One then
+		Anim:Stop()
+		id = "taunt"
+		Anim = hum:LoadAnimation(111309618966926)
+		taunt = true
+		Anim:Play()
+	end
+end)
+
+uis.InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.T and not taunt and not pizza then
+		if id ~= rtrid then
+			hum.WalkSpeed = 0
+			sprinting1 = false
+			ability = true
+			Anim:Stop(2)
+			Anim = hum:LoadAnimation(rtrid)
+			Anim.Looped = false
+			Anim:Play()
+			id = rtrid
+			wait(3)
+			ability = false
+			hum.WalkSpeed = 6
+		end
+	end
+end)
+
+uis.InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.Q and not pizza and not finish then
+		sprinting1 = false
+		wait(.1)
+		entanglement = true
+		hum.WalkSpeed = 0
+		wait(1.5)
+		entanglement = false
+		hum.WalkSpeed = 9
+	end
+end)
+
+uis.InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.R and not entanglement and not finish then
+		sprinting1 = false
+		wait(.1)
+		pizza = true
+		hum.WalkSpeed = 0
+		wait(3)
+		pizza = false
+		hum.WalkSpeed = 9
+	end
+end)
+
+uis.InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.E and not entanglement then
+		sprinting1 = false
+		ability = true
+		eye = true
+		hum.WalkSpeed = 0
+		wait(3)
+		ability = false
+		eye = false
+		hum.WalkSpeed = 9
+	end
+end)
+
+mouse.Button1Down:Connect(function()
+	if id ~= m1 then
+		mouse1 = true
+		Anim:Stop()
+		Anim = hum:LoadAnimation(m1)
+		Anim.Looped = false
+		Anim:Play()
+		id = m1
+		wait(1)
+		mouse1 = false
+	end
+end)
+
+while wait() do
+	if idle and not (taunt or hurt or ability or entanglement or pizza or mouse1 or finish) and id ~= i then
+		Anim:Stop(2)
+		Anim = hum:LoadAnimation(i)
+		Anim.Looped = true
+		Anim:Play()
+		id = i
+	end
+	if walking and not (taunt or ability or hurt or sprinting1 or entanglement or pizza or finish or mouse1) and id ~= walk then
+		Anim:Stop(2)
+		Anim = hum:LoadAnimation(walk)
+		Anim.Looped = true
+		Anim:Play()
+		id = walk
+	end
+	if sprinting and not (taunt or ability or hurt or mouse1) and id ~= run then
+		Anim:Stop(2)
+		Anim = hum:LoadAnimation(run)
+		Anim.Looped = true
+		Anim:Play()
+		id = run
+	end
+	if hum.MoveDirection ~= Vector3.new(0,0,0) then
+		walking = not sprinting1
+		sprinting = sprinting1
+		idle = false
+		taunt = false
+	else
+		idle, walking, sprinting = true, false, false
+	end
+	-- (giữ logic animation khác y như bản gốc bạn gửi)
+end
