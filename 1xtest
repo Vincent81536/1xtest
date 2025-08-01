@@ -1,202 +1,62 @@
--- Made by @emperrrr (Discord)
--- Discord server: https://discord.gg/UJ7YtqadPJ
--- (đã rút gọn phần khai báo để tiết kiệm ký tự)
-local function Start(Options)
-	-- (...giữ nguyên toàn bộ phần xử lý gốc trong Start)
-end
-
-Empyrean = Start({
-	Accessories = {
-		{ MeshId = "137702817952968", Names = { "Left Arm", "Right Arm", "Left Leg", "Right Leg" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "135650240593878" },
-		-- (...giữ nguyên danh sách hats gốc của bạn ở đây)
-	},
-	ApplyDescription = true,
-	BreakJointsDelay = 0.25,
-	ClickFling = false,
-	DefaultFlingOptions = {
-		HatFling = false,
-		Highlight = false,
-		PredictionFling = true,
-		Timeout = 1,
-		ToolFling = false,
-	},
-	DisableCharacterCollisions = true,
-	DisableHealthBar = true,
-	DisableRigCollisions = true,
-	HatDrop = false,
-	HideCharacter = false, -- đã fix
-	ParentCharacter = true,
-	PermanentDeath = false, -- đã fix
-	Refit = false,
-	RigSize = 1,
-	RigTransparency = 1,
-	R15 = false,
-	SetCameraSubject = true,
-	SetCameraType = true,
-	SetCharacter = true,
-	SetCollisionGroup = true,
-	SimulationRadius = 2147483647,
-	TeleportRadius = 12,
-	UseServerBreakJoints = false,
-})
-
-task.wait(3)
-if not getgenv()["Animator"] then
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/xhayper/Animator/main/Source/Main.lua"))()
-	hookAnimatorFunction()
-end
-
-local Anim, id
-local walk = 109130982296927
-local i = 138754221537146
-local m1 = 83829782357897
-local fid = 89669118763885
-local rtrid = 116996902830888
-local pizzaid = 116814116277716
-local eyeid = 119429069577280
-local CNid = 86799093901669
-local run = 106485518413331
-local hwalking = 132377038617766
-local hidle = 134624270247120
-local hrun = 115946474977409
-local taunt = false
-local hurt, sprinting1, entanglement, pizza, ability, finish, eye, rtr = false, false, false, false, false, false, false, false
-local idle, walking, sprinting, mouse1 = true, false, false, false
-
-local Players = game:GetService("Players")
-local uis = game:GetService("UserInputService")
-local player = Players.LocalPlayer
-local mouse = player:GetMouse()
-local char = player.Character
-local hum = char:FindFirstChild("Humanoid")
-hum.Animator:Destroy()
-char.Animate:Destroy()
-Anim = hum:LoadAnimation(i)
-Anim:Play()
-id = i
-hum.WalkSpeed = 6
-
-uis.InputBegan:Connect(function(input)
-	if input.KeyCode == Enum.KeyCode.LeftShift and not entanglement and not pizza then
-		sprinting1 = true
-		hum.WalkSpeed = 30
-	end
-end)
-
-uis.InputEnded:Connect(function(input)
-	if input.KeyCode == Enum.KeyCode.LeftShift and not entanglement and not pizza then
-		sprinting1 = false
-		hum.WalkSpeed = 6
-	end
-end)
-
-uis.InputBegan:Connect(function(input)
-	if input.KeyCode == Enum.KeyCode.One then
-		Anim:Stop()
-		id = "taunt"
-		Anim = hum:LoadAnimation(111309618966926)
-		taunt = true
-		Anim:Play()
-	end
-end)
-
-uis.InputBegan:Connect(function(input)
-	if input.KeyCode == Enum.KeyCode.T and not taunt and not pizza then
-		if id ~= rtrid then
-			hum.WalkSpeed = 0
-			sprinting1 = false
-			ability = true
-			Anim:Stop(2)
-			Anim = hum:LoadAnimation(rtrid)
-			Anim.Looped = false
-			Anim:Play()
-			id = rtrid
-			wait(3)
-			ability = false
-			hum.WalkSpeed = 6
-		end
-	end
-end)
-
-uis.InputBegan:Connect(function(input)
-	if input.KeyCode == Enum.KeyCode.Q and not pizza and not finish then
-		sprinting1 = false
-		wait(.1)
-		entanglement = true
-		hum.WalkSpeed = 0
-		wait(1.5)
-		entanglement = false
-		hum.WalkSpeed = 9
-	end
-end)
-
-uis.InputBegan:Connect(function(input)
-	if input.KeyCode == Enum.KeyCode.R and not entanglement and not finish then
-		sprinting1 = false
-		wait(.1)
-		pizza = true
-		hum.WalkSpeed = 0
-		wait(3)
-		pizza = false
-		hum.WalkSpeed = 9
-	end
-end)
-
-uis.InputBegan:Connect(function(input)
-	if input.KeyCode == Enum.KeyCode.E and not entanglement then
-		sprinting1 = false
-		ability = true
-		eye = true
-		hum.WalkSpeed = 0
-		wait(3)
-		ability = false
-		eye = false
-		hum.WalkSpeed = 9
-	end
-end)
-
-mouse.Button1Down:Connect(function()
-	if id ~= m1 then
-		mouse1 = true
-		Anim:Stop()
-		Anim = hum:LoadAnimation(m1)
-		Anim.Looped = false
-		Anim:Play()
-		id = m1
-		wait(1)
-		mouse1 = false
-	end
-end)
-
-while wait() do
-	if idle and not (taunt or hurt or ability or entanglement or pizza or mouse1 or finish) and id ~= i then
-		Anim:Stop(2)
-		Anim = hum:LoadAnimation(i)
-		Anim.Looped = true
-		Anim:Play()
-		id = i
-	end
-	if walking and not (taunt or ability or hurt or sprinting1 or entanglement or pizza or finish or mouse1) and id ~= walk then
-		Anim:Stop(2)
-		Anim = hum:LoadAnimation(walk)
-		Anim.Looped = true
-		Anim:Play()
-		id = walk
-	end
-	if sprinting and not (taunt or ability or hurt or mouse1) and id ~= run then
-		Anim:Stop(2)
-		Anim = hum:LoadAnimation(run)
-		Anim.Looped = true
-		Anim:Play()
-		id = run
-	end
-	if hum.MoveDirection ~= Vector3.new(0,0,0) then
-		walking = not sprinting1
-		sprinting = sprinting1
-		idle = false
-		taunt = false
-	else
-		idle, walking, sprinting = true, false, false
-	end
-	-- (giữ logic animation khác y như bản gốc bạn gửi)
-end
+elseif getgenv().Framework == "Krypton" then
+KryptonConfiguration = {
+WaitTime = 0.251,
+FakeRigScale = 1,
+DestroyHeightOffset = 50,
+TeleportOffsetRadius = 20,
+RefitHatCount = 2,
+RigName = "Tetris",
+ReturnOnDeath = true,
+Reclaim = false,
+Refit = true,
+SetCharacter = true,
+Animations = true,
+NoCollisions = true,
+AntiVoiding = false,
+SetSimulationRadius = true,
+DisableCharacterScripts = true,
+AccessoryFallbackDefaults = true,
+OverlayFakeCharacter = false,
+LimitHatsPerLimb = false,
+NoBodyNearby = true,
+PermanentDeath = true,
+Hats = {
+["Torso"] = {
+{Texture = "4819722776", Mesh = "4819720316", Name = "MeshPartAccessory", Offset = CFrame.Angles(0, 0, -0.25)},
+{Texture = "14251599953", Mesh = "14241018198", Name = "Black", Offset = CFrame.Angles(0, 0, 0)},
+{Texture = "131014325980101", Mesh = "127552124837034", Name = "Accessory (Toorso)", Offset = CFrame.Angles(0, 0, 0)},
+},
+["Right Arm"] = {
+{Texture = "129264637819824", Mesh = "121342985816617", Name = "Accessory (SnakeRight)", Offset = CFrame.Angles(0, 3.15, 1.57)},
+{Texture = "3409604993", Mesh = "3030546036", Name = "InternationalFedora", Offset = CFrame.Angles(-1.57, 0, -1.57)},
+{Texture = "12344206675", Mesh = "12344206657", Name = "Extra Right hand (Blocky)_white", Offset = CFrame.new(-0.05, 0.05, -0.075) * CFrame.Angles(-1.95, 0, 0)},
+{Texture = "14255543546", Mesh = "14255522247", Name = "RARM", Offset = CFrame.Angles(0, 0, 1.57)},
+{Texture = "17374768001", Mesh = "17374767929", Name = "Accessory (RARM)", Offset = CFrame.Angles(0, 0, 1.57)},
+{Texture = "120169691545791", Mesh = "117287001096396", Name = "Accessory (RARM)", Offset = CFrame.Angles(0, 0, 0)},
+},
+["Left Arm"] = {
+{Texture = "129264637819824", Mesh = "121342985816617", Name = "Accessory (SnakeLeft)", Offset = CFrame.Angles(0, 0, 1.57)},
+{Texture = "3033903209", Mesh = "3030546036", Name = "InternationalFedora", Offset = CFrame.Angles(-1.57, 0, 1.57)},
+{Texture = "12344207341", Mesh = "12344207333", Name = "Extra Left hand (Blocky)_white", Offset = CFrame.new(-0.05, 0.05, -0.075) * CFrame.Angles(-1.95, 0, 0)},
+{Texture = "14255543546", Mesh = "14255522247", Name = "LARM", Offset = CFrame.Angles(0, 0, 1.57)},
+{Texture = "17374768001", Mesh = "17374767929", Name = "Accessory (LARM)", Offset = CFrame.Angles(0, 0, 1.57)},
+{Texture = "120169691545791", Mesh = "117287001096396", Name = "Accessory (LARM)", Offset = CFrame.Angles(0, 0, 0)},
+},
+["Right Leg"] = {
+{Texture = "3033898741", Mesh = "3030546036", Name = "InternationalFedora", Offset = CFrame.Angles(-1.57, 0, -1.57)},
+{Texture = "17387586304", Mesh = "17387586286", Name = "Accessory (LLeg)", Offset = CFrame.Angles(0, 0, 1.57)},
+{Texture = "11263219250", Mesh = "11263221350", Name = "MeshPartAccessory", Offset = CFrame.Angles(0, 0, 1.57)},
+{Texture = "131014325980101", Mesh = "121304376791439", Name = "Accessory (LeftLeg)", Offset = CFrame.Angles(0, 0, 0)},
+{Texture = "84429400539007", Mesh = "123388937940630", Name = "Accessory (LeftShoulder)", Offset = CFrame.Angles(0, 1.57, 0)},
+},
+["Left Leg"] = {
+{Texture = "3360978739", Mesh = "3030546036", Name = "InternationalFedora", Offset = CFrame.Angles(-1.57, 0, 1.57)},
+{Texture = "17387586304", Mesh = "17387586286", Name = "Accessory (rightleg)", Offset = CFrame.Angles(0, 1.57, 1.57)},
+{Texture = "11159284657", Mesh = "11159370334", Name = "Unloaded head", Offset = CFrame.Angles(0, 1.57, 1.57)},
+{Texture = "131014325980101", Mesh = "121304376791439", Name = "Accessory (RightLeg)", Offset = CFrame.Angles(0, 0, 0)},
+{Texture = "84429400539007", Mesh = "117554824897780", Name = "Accessory (RightShoulder)", Offset = CFrame.Angles(0, -1.57, 0)},
+},
+},
+}
+local Reanimate = loadstring(game:HttpGet("https://raw.githubusercontent.com/KadeTheExploiter/Krypton/main/Module.luau"))()
+Character = Reanimate:GetCharacter()
