@@ -10,8 +10,7 @@ return false
 end
 
 local AnimDefaults = {
-["CustomSword"] = CFrame.new(0, -1, -1.5) * CFrame.Angles(math.rad(20), 0, 0),
-["CustomSword"] = CFrame.new(0, -1, -1.5) * CFrame.Angles(math.rad(20), 0, 0),
+["CustomSword"] = CFrame.new(-0.3166, 0, -1.2999),
 ["Chainsaw"] = CFrame.new(0, 0, 0),
 ["Machete"] = CFrame.new(0, 0, 0) * CFrame.Angles(math.rad(-90), math.rad(180), math.rad(0)),
 ["Neck"] = CFrame.new(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 1, -0),
@@ -46,7 +45,6 @@ return error("Rig Humanoid is not R6!")
 end
 local Joints = {
 ["CustomSword"] = Rig.HumanoidRootPart:FindFirstChild("CustomSword"),
-["CustomSword"] = Rig.HumanoidRootPart:FindFirstChild("CustomSword"),
 ["Machete"] = Rig.HumanoidRootPart:FindFirstChild("Machete"),
 ["Chainsaw"] = Rig.HumanoidRootPart:FindFirstChild("Chainsaw"),
 ["Torso"] = Rig.HumanoidRootPart:FindFirstChild("RootJoint") or Rig.HumanoidRootPart:FindFirstChild("Root Joint"),
@@ -68,7 +66,6 @@ if RigHumanoid.RigType ~= Enum.HumanoidRigType.R6 then
 return error("Rig Humanoid is not R6!")
 end
 local Joints = {
-["CustomSword"] = Rig.HumanoidRootPart:FindFirstChild("CustomSword"),
 ["CustomSword"] = Rig.HumanoidRootPart:FindFirstChild("CustomSword"),
 ["Machete"] = Rig.HumanoidRootPart:FindFirstChild("Machete"),
 ["Chainsaw"] = Rig.HumanoidRootPart:FindFirstChild("Chainsaw"),
