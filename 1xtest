@@ -10,11 +10,11 @@ return false
 end
 
 local AnimDefaults = {
-["Machete"] = CFrame.new(1.49398041, -1.41496849, -0.09997559) * CFrame.Angles(math.rad(90.00000250), math.rad(0.00000000), math.rad(-180.00000501)),
+--["Machete"] = CFrame.new(1.49398041, -1.41496849, -0.09997559) * CFrame.Angles(math.rad(90.00000250), math.rad(0.00000000), math.rad(-180.00000501)),
 --["CustomSword"] = CFrame.new(0, -1.5, 0),
 ["Chainsaw"] = CFrame.new(0, 0, 0),
 --["Machete"] = CFrame.new(1.55000877, -1.49998784, -0.150005341) * CFrame.Angles(0, math.rad(90), 0),
---["Machete"] = CFrame.new(0, 0, 0) * CFrame.Angles(math.rad(-90), math.rad(180), math.rad(0)),
+["Machete"] = CFrame.new(0, 0, 0) * CFrame.Angles(math.rad(-90), math.rad(180), math.rad(0)),
 ["Neck"] = CFrame.new(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 1, -0),
 ["RootJoint"] = CFrame.new(0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 1, -0),
 ["Right Shoulder"] = CFrame.new(1, 0.5, 0, 0, 0, 1, 0, 1, -0, -1, 0, 0),
